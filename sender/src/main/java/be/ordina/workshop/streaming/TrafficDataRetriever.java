@@ -24,23 +24,14 @@ public class TrafficDataRetriever {
 
 	private static final Logger logger = LoggerFactory.getLogger(TrafficDataRetriever.class);
 
-	private final String baseUrl;
+	private WebClient webClient;
 
-	public TrafficDataRetriever(@Value("${ws.trafficdata.baseUrl:}") String baseUrl) {
-		this.baseUrl = baseUrl;
+	public TrafficDataRetriever(WebClient webClient) {
+		this.webClient = webClient;
 	}
 
-	public Mono<Miv> getTrafficData() {
+	Mono<Miv> getTrafficData() {
 		logger.info("Get Traffic Data");
-
-		WebClient webClient = WebClient.builder()
-			.exchangeStrategies(ExchangeStrategies.builder()
-				.codecs(configurer -> configurer
-						.defaultCodecs()
-						.maxInMemorySize(16 * 1024 * 1024))
-				.build())
-				.baseUrl(this.baseUrl)
-			.build();
 
 		return webClient
 				.get().uri("/miv/verkeersdata")

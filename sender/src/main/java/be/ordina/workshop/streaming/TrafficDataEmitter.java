@@ -5,6 +5,10 @@ import be.ordina.workshop.streaming.domain.VehicleClass;
 import generated.traffic.Miv;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cloud.stream.annotation.EnableBinding;
+import org.springframework.cloud.stream.messaging.Source;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -22,6 +26,7 @@ import java.util.function.Function;
  */
 @Component
 //lab 1: add something over here
+@EnableBinding(Source.class)
 @EnableScheduling
 public class TrafficDataEmitter {
 
@@ -30,8 +35,11 @@ public class TrafficDataEmitter {
 	private final TrafficDataConverter trafficDataConverter = new TrafficDataConverter();
 	private final TrafficDataRetriever trafficDataRetriever;
 
+	private final Source source;
+
 	//lab 1: update this constructor and inject something over here
-	public TrafficDataEmitter(TrafficDataRetriever trafficDataRetriever) {
+	public TrafficDataEmitter(TrafficDataRetriever trafficDataRetriever, Source source) {
+		this.source = source;
 		this.trafficDataRetriever = trafficDataRetriever;
 	}
 
@@ -41,12 +49,12 @@ public class TrafficDataEmitter {
 		logger.info("send traffic events");
 		//lab 1: send out the events
 
-	}
+		this.getTrafficDataEvents().subscribe(trafficEvent -> {
+			Message message = MessageBuilder.withPayload(trafficEvent).build();
+			this.source.output().send(message);
+		});
 
-	private List<TrafficEvent> getTrafficDataEventsAsList() {
-		return this.getTrafficDataEvents().collectList().block();
 	}
-
 
 	private Flux<TrafficEvent> getTrafficDataEvents() {
 		return this.trafficDataRetriever.getTrafficData()
@@ -58,7 +66,8 @@ public class TrafficDataEmitter {
 				.map(trafficDataConverter::convertToTrafficEvent);
 	}
 
-	private List<TrafficEvent> getTrafficDataEventsAsList2() {
+	/* If the API should be down, use this method instead
+	private List<TrafficEvent> getTrafficDataEventsAsList() {
 
 		List<TrafficEvent> randomTrafficEvents = new ArrayList<>();
 
@@ -95,7 +104,7 @@ public class TrafficDataEmitter {
 
 
 		return randomTrafficEvents;
-	}
+	}*/
 
 	private TrafficEvent createTrafficEvent(VehicleClass vehicleClass, int trafficIntensityMin, int trafficIntensityMax, int vehicleSpeedCalculatedMin, int vehicleSpeedCalculatedMax
 			, String sensorId, String sensorDescription, Date timeRegistration, Date lastUpdated) {

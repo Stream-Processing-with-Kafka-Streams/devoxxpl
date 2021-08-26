@@ -36,6 +36,15 @@ Just add `spring.cloud.stream.bindings.output.destination=traffic-data` and we'r
 
 The only thing to do now is to create the actual implementation of the `sendTrafficEvents` method:
 ```
+this.getTrafficDataEvents().subscribe(trafficEvent -> {
+			Message message = MessageBuilder.withPayload(trafficEvent).build();
+			this.source.output().send(message);
+		});
+```
+
+If the API is down, you can use this implementation instead.
+
+``` 
 this.getTrafficDataEventsAsList().stream()
     .map(trafficEvent -> MessageBuilder.withPayload(trafficEvent).build())
 	.forEach(message -> this.source.output().send(message));
