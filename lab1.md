@@ -42,7 +42,7 @@ this.getTrafficDataEvents().subscribe(trafficEvent -> {
 		});
 ```
 
-If the API is down, you can use this implementation instead.
+If the API is down, you can use this implementation instead. In this case, we created a stub menu, commented in the `TrafficDataEmitter` class.
 
 ``` 
 this.getTrafficDataEventsAsList().stream()

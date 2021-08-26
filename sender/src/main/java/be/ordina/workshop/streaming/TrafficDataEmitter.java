@@ -26,7 +26,6 @@ import java.util.function.Function;
  */
 @Component
 //lab 1: add something over here
-@EnableBinding(Source.class)
 @EnableScheduling
 public class TrafficDataEmitter {
 
@@ -35,11 +34,8 @@ public class TrafficDataEmitter {
 	private final TrafficDataConverter trafficDataConverter = new TrafficDataConverter();
 	private final TrafficDataRetriever trafficDataRetriever;
 
-	private final Source source;
-
 	//lab 1: update this constructor and inject something over here
-	public TrafficDataEmitter(TrafficDataRetriever trafficDataRetriever, Source source) {
-		this.source = source;
+	public TrafficDataEmitter(TrafficDataRetriever trafficDataRetriever) {
 		this.trafficDataRetriever = trafficDataRetriever;
 	}
 
@@ -48,12 +44,6 @@ public class TrafficDataEmitter {
 	public void sendTrafficEvents() {
 		logger.info("send traffic events");
 		//lab 1: send out the events
-
-		this.getTrafficDataEvents().subscribe(trafficEvent -> {
-			Message message = MessageBuilder.withPayload(trafficEvent).build();
-			this.source.output().send(message);
-		});
-
 	}
 
 	private Flux<TrafficEvent> getTrafficDataEvents() {
