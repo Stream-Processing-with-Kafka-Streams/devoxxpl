@@ -34,11 +34,6 @@
 
 		<!--lab 1 - add my dependency -->
 
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-stream-kafka</artifactId>
-		</dependency>
-
 		<!-- TEST -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
