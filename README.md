@@ -45,10 +45,10 @@ These are also the ports used by default by Spring Cloud Stream
 [Consume Events from Kafka](lab2.md)
 
 ### Lab 3a: use Kafka Streams, stateless
-[Use Kafka Streams, stateless](lab3a.md)
+[Use Kafka Streams, stateless](lab3.md)
 
 ### Lab 3b: make use of windows
-[Use Windows with Kafka Streams](lab3b.md)
+[Use Windows with Kafka Streams](lab4.md)
 
 ### Lab 4: Think about how you would detect a traffic congestion
 Think about how you would tackle the problem.

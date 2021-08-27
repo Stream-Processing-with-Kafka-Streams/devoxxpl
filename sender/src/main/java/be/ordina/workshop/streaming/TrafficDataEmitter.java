@@ -1,24 +1,14 @@
 package be.ordina.workshop.streaming;
 
 import be.ordina.workshop.streaming.domain.TrafficEvent;
-import be.ordina.workshop.streaming.domain.VehicleClass;
 import generated.traffic.Miv;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cloud.stream.annotation.EnableBinding;
-import org.springframework.cloud.stream.messaging.Source;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.util.function.Tuples;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
 import java.util.function.Function;
 
 /**
@@ -56,7 +46,7 @@ public class TrafficDataEmitter {
 				.map(trafficDataConverter::convertToTrafficEvent);
 	}
 
-	/* If the API should be down, use this method instead
+	/* If the API should be down, use these methods instead
 	private List<TrafficEvent> getTrafficDataEventsAsList() {
 
 		List<TrafficEvent> randomTrafficEvents = new ArrayList<>();
@@ -94,7 +84,7 @@ public class TrafficDataEmitter {
 
 
 		return randomTrafficEvents;
-	}*/
+	}
 
 	private TrafficEvent createTrafficEvent(VehicleClass vehicleClass, int trafficIntensityMin, int trafficIntensityMax, int vehicleSpeedCalculatedMin, int vehicleSpeedCalculatedMax
 			, String sensorId, String sensorDescription, Date timeRegistration, Date lastUpdated) {
@@ -105,6 +95,6 @@ public class TrafficDataEmitter {
 
 		return new TrafficEvent(vehicleClass, trafficIntensityCalculated, vehicleSpeedCalculated, vehicleSpeedCalculated,
 				sensorId, sensorDescription, 0, timeRegistration, lastUpdated, false, false);
-	}
+	}*/
 
 }
