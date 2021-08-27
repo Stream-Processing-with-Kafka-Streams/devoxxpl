@@ -42,6 +42,10 @@ this.getTrafficDataEvents().subscribe(trafficEvent -> {
 		});
 ```
 
+In the code above, we retrieve the events one by one as a `Flux`. Each event is mapped to a Spring Integration `Message`, so we can send the message to our `output` channel.
+
+____________________________________________________________________________________________________
+
 If the API is down, you can use this implementation instead. In this case, we created a stub menu, commented in the `TrafficDataEmitter` class.
 
 ``` 
