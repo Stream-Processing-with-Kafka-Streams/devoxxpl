@@ -1,4 +1,4 @@
-### Lab 4a: use Kafka Streams, stateless
+### Lab 3: use Kafka Streams, stateless
 #### Goal
 Now we will convert our application to use the native Kafka streams functionality.
 This exercise will cover the stateless operations which we'll use to filter out all the cars and print them out.

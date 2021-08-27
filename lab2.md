@@ -1,4 +1,4 @@
-### Lab 3: consume events from Kafka
+### Lab 2: consume events from Kafka
 #### Goal
 With this exercise we will let you consume your first messages from Kafka by making use of Spring Cloud Stream.
 This is the most basic form of stream processing, your method will be called for every event present on the topic.
