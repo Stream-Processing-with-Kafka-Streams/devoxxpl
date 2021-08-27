@@ -30,6 +30,11 @@
 
 
 		<!--lab 2 - add my dependency -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-stream-binder-kafka-streams</artifactId>
+		</dependency>
+
 
 
 		<dependency>
